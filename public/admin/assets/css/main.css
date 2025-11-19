@@ -1,0 +1,120 @@
+/* Buttons Gradient */
+.btn-gradient {
+    background: linear-gradient(45deg, #4e73df, #36d1dc);
+    border: none;
+    color: white !important;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(54, 209, 220, 0.3);
+    white-space: nowrap;
+    height: 50px;
+}
+.btn-gradient:hover {
+    background: linear-gradient(45deg, #36d1dc, #4e73df);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(54, 209, 220, 0.4);
+    color: white !important;
+}
+
+.input-group {
+    margin-top: 16px;
+}
+
+.input-group .form-control {
+    height: 50px;
+    font-size: 1rem;
+}
+.input-group .btn {
+    height: 50px;
+    font-size: 1rem;
+}
+
+/* Table Styling */
+.table thead th {
+    border-bottom: 2px solid #e5e7eb;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 12px;
+    background-color: #f8fafc;
+}
+.table tbody td {
+    padding: 16px 12px;
+    vertical-align: middle;
+}
+.table tbody tr {
+    transition: all 0.2s;
+}
+.table tbody tr:hover {
+    background-color: #f8faff !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Badges */
+.badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 8px;
+}
+
+/* Rounded Small Buttons */
+.btn-sm.rounded-circle {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.btn-sm.rounded-circle:hover {
+    transform: scale(1.05);
+}
+
+.btn{
+--bs-btn-color:#efefef;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Input Group */
+.input-group-lg .form-control,
+.input-group-lg .btn {
+    height: 50px;
+    font-size: 1rem;
+}
+
+/* Pagination */
+.pagination {
+    margin-bottom: 0;
+}
+.page-link {
+    border-radius: 8px;
+    margin: 0 4px;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    font-weight: 500;
+}
+.page-link:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #475569;
+}
+.page-item.active .page-link {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+a.btn.btn-outline-success.btn-sm.rounded-circle.d-flex.align-items-center.justify-content-center
+{
+    margin-top: 10px;
+}
+
+.btn-sm.rounded-circle{
+    margin-top: 10px;
+}
