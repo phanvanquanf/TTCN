@@ -47,6 +47,7 @@ class StaffController extends Controller
         $blockedAccountIds = array_merge($usedByPatients, $usedByStaff);
 
         $accounts = Accounts::where('status', 0)
+            ->where('role', 1)
             ->whereNotIn('accountId', $blockedAccountIds)
             ->orderBy('username')
             ->get();
@@ -65,14 +66,7 @@ class StaffController extends Controller
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalExtension();
 
-            $position = (int) $request->position;
-
-            $folder = match ($position) {
-                0 => 'doctor',
-                1 => 'clinic',
-            };
-
-            $destinationPath = public_path("admin/assets/img/staff/$folder");
+            $destinationPath = public_path("admin/assets/img/staff/doctor");
 
             $file->move($destinationPath, $filename);
 
@@ -96,12 +90,14 @@ class StaffController extends Controller
         $blockedAccountIds = array_merge($usedByPatients, $usedByOtherStaff);
 
         $accounts = Accounts::where('status', 0)
+            ->where('role', 1)
             ->where(function ($q) use ($blockedAccountIds, $staff) {
                 $q->whereNotIn('accountId', $blockedAccountIds)
                     ->orWhere('accountId', $staff->accountId);
             })
             ->orderBy('username')
             ->get();
+
         $services = Services::orderBy('serviceName')->get();
 
         return view('admin.staff.edit', compact('staff', 'accounts', 'services'));
@@ -113,42 +109,30 @@ class StaffController extends Controller
         $staff = Staff::findOrFail($id);
         $staffData = $request->validated();
 
-        if (!empty($staff->image)) {
-            $oldPath = $staff->position == 0
-                ? public_path("admin/assets/img/staff/doctor/{$staff->image}")
-                : public_path("admin/assets/img/staff/clinic/{$staff->image}");
-
-            $newPath = $staffData['position'] == 0
-                ? public_path("admin/assets/img/staff/doctor/{$staff->image}")
-                : public_path("admin/assets/img/staff/clinic/{$staff->image}");
-
-            if ($oldPath !== $newPath && file_exists($oldPath)) {
-                $newDir = dirname($newPath);
-                if (!file_exists($newDir)) {
-                    mkdir($newDir);
-                }
-                rename($oldPath, $newPath);
-            }
-        }
-
         if ($request->hasFile('image')) {
-            if (!empty($staff->image) && file_exists($newPath)) {
-                unlink($newPath);
+            if (!empty($staff->image)) {
+                $oldPath = public_path("admin/assets/img/staff/doctor/{$staff->image}");
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
             }
+
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $destinationPath = $staffData['position'] == 0
-                ? public_path("admin/assets/img/staff/doctor")
-                : public_path("admin/assets/img/staff/clinic");
+            $destinationPath = public_path("admin/assets/img/staff/doctor");
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath);
+            }
+
             $file->move($destinationPath, $filename);
             $staffData['image'] = $filename;
         }
 
         $staff->update($staffData);
 
-        return redirect()->route('staff.index');
+        return redirect()->route('staff.index')->with('success', 'Cập nhật nhân viên thành công.');
     }
-
 
 
     public function destroy($id)

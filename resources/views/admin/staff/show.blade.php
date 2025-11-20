@@ -24,23 +24,11 @@
 
                             <h4 class="fw-bold text-primary mb-4">Thông tin nhân viên</h4>
 
-                            <!-- Ảnh đại diện -->
                             <div class="text-center mb-4">
-                                @php
-                                    $folder = $staff->position == 0 ? 'doctor'
-                                        : ($staff->position == 1 ? 'clinic' : 'other');
-                                @endphp
-
-                                @if($staff->image)
-                                    <img src="{{ asset('admin/assets/img/staff/' . $folder . '/' . $staff->image) }}"
-                                        class="rounded-3 border" style="width:200px; height:200px; object-fit:cover;">
-                                @else
-                                    <img src="{{ asset('admin/assets/img/default.png') }}" class="rounded-3 border"
-                                        style="width:200px; height:200px; object-fit:cover;">
-                                @endif
+                                <img src="{{ asset('admin/assets/img/staff/doctor' . '/' . $staff->image) }}"
+                                    class="rounded-3 border" style="width:200px; height:200px; object-fit:cover;">
                             </div>
 
-                            <!-- Bảng thông tin -->
                             <table class="table table-bordered align-middle">
                                 <tr>
                                     <th class="bg-light fw-semibold" style="width: 30%">Họ và tên</th>
@@ -52,25 +40,14 @@
                                     <td>{{ $staff->gender == 0 ? 'Nam' : 'Nữ' }}</td>
                                 </tr>
 
-                                <tr>
-                                    <th class="bg-light fw-semibold">Ngày sinh</th>
-                                    <td>{{ $staff->birthDate }}</td>
-                                </tr>
 
-                                <tr>
-                                    <th class="bg-light fw-semibold">Chức vụ</th>
-                                    <td>{{ $staff->position == 0 ? 'Bác sĩ' : ($staff->position == 1 ? 'Nhân viên' : 'Khác') }}
-                                    </td>
-                                </tr>
+                                <th class="bg-light fw-semibold">Ngày sinh</th>
+                                <td>{{ $staff->birthDate }}</td>
 
-                                <tr>
-                                    <th class="bg-light fw-semibold">Phòng ban</th>
-                                    <td>{{ $staff->department }}</td>
-                                </tr>
 
                                 <tr>
                                     <th class="bg-light fw-semibold">Dịch vụ</th>
-                                    <td>{{ $staff->services?->serviceName ?? 'Tiếp khách' }}</td>
+                                    <td>{{ $staff->services->serviceName}}</td>
                                 </tr>
 
                                 <tr>

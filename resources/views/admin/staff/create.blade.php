@@ -63,24 +63,6 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label fw-semibold">Chức vụ</label>
-                                        <select name="position"
-                                            class="form-select form-select-lg shadow-sm border-0 rounded-3">
-                                            <option value="0" {{ old('position') == 0 ? 'selected' : '' }}>Bác sĩ</option>
-                                            <option value="1" {{ old('position') == 1 ? 'selected' : '' }}>Nhân viên phòng
-                                                khám</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-semibold">Phòng ban</label>
-                                        <input type="text" name="department"
-                                            class="form-control form-control-lg shadow-sm border-0 rounded-3"
-                                            value="{{ old('department') }}" placeholder="Nhập tên phòng ban">
-                                        <span class="text-danger">@error('department') {{ $message }} @enderror</span>
-                                    </div>
-
-                                    <div class="col-md-6">
                                         <label class="form-label fw-semibold">Số điện thoại</label>
                                         <input type="text" name="phone"
                                             class="form-control form-control-lg shadow-sm border-0 rounded-3"

@@ -129,53 +129,54 @@
 
             <!-- Profile -->
             @auth
-            <li class="nav-item dropdown pe-3">
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <!-- Avatar người dùng -->
-                    <img src="{{ asset('admin/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle" width="40" height="40">
-                    <!-- Tên user -->
-                    <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->username }}</span>
-                </a>
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <!-- Avatar người dùng -->
+                        @php
+                            $image = auth()->user()->staff?->image;
+                        @endphp
+                        <img src="{{ asset('admin/assets/img/staff/doctor/' . $image) }}" alt="Profile"
+                            class="rounded-circle" width="40" height="40">
+                        <!-- Tên user -->
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->staff?->fullName }}</span>
+                    </a>
 
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <!-- Header -->
-                    <li class="dropdown-header text-center">
-                        <h6>{{ auth()->user()->username }}</h6>
-                        <span>{{ auth()->user()->email }}</span>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <!-- Header -->
+                        <li class="dropdown-header text-center">
+                            <h6>{{ auth()->user()->username }}</h6>
+                            <span>{{ auth()->user()->email }}</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-                    <!-- Hồ sơ cá nhân -->
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        @php
+                            $staffId = auth()->user()->staff?->staffId;
+                        @endphp
+
+                        <a class="dropdown-item d-flex align-items-center"
+                            href="{{ $staffId ? route('profile.index', $staffId) : route('profile.noinfo') }}">
                             <i class="bi bi-person me-2"></i>
                             <span>Hồ sơ của tôi</span>
                         </a>
-                    </li>
 
-                    <!-- Lịch sử -->
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <i class="bi bi-calendar-check me-2"></i>
-                            <span>Lịch sử hẹn khám</span>
-                        </a>
-                    </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-                    <li><hr class="dropdown-divider"></li>
-
-                    <!-- Đăng xuất -->
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="bi bi-box-arrow-right me-2"></i>
-                            <span>Đăng xuất</span>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
-            </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="bi bi-box-arrow-right me-2"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </li>
             @endauth
 
 
@@ -245,3 +246,14 @@
 
     </ul>
 </aside>
+
+<style>
+    .logo img {
+        max-height: 45px;
+    }
+
+    .justify-content-between {
+        justify-content: space-between !important;
+        margin-left: -17px;
+    }
+</style>

@@ -47,8 +47,6 @@
                                             <th>#</th>
                                             <th>Hình ảnh</th>
                                             <th>Họ & tên</th>
-                                            <th>Chức vụ</th>
-                                            <th>Phòng ban</th>
                                             <th>Dịch vụ</th>
                                             <th>Trạng thái</th>
                                             <th>Chức năng</th>
@@ -58,25 +56,13 @@
                                         @forelse ($staffs as $index => $staff)
                                             <tr class="border-bottom">
                                                 <td class="fw-medium">{{ $staffs->firstItem() + $index}}</td>
-
                                                 <td>
-                                                    @php
-                                                        $folder = $staff->position == 0 ? 'doctor'
-                                                            : ($staff->position == 1 ? 'clinic' : 'other');
-                                                    @endphp
-                                                    @if($staff->image)
-                                                        <img src="{{ asset('admin/assets/img/staff/' . $folder . '/' . $staff->image) }}"
-                                                            alt="{{ $staff->fullName }}" class="rounded-2"
-                                                            style="width:100px; height:100px; object-fit:cover; display:block; margin:auto;">
-                                                    @else
-                                                        <span class="text-muted">Chưa có</span>
-                                                    @endif
+                                                    <img src="{{ asset('admin/assets/img/staff/doctor' . '/' . $staff->image) }}"
+                                                        alt="{{ $staff->fullName }}" class="rounded-2"
+                                                        style="width:100px; height:100px; object-fit:cover; display:block; margin:auto;">
                                                 </td>
-
                                                 <td class="fw-semibold">{{ $staff->fullName }}</td>
-                                                <td>{{ $staff->position == 0 ? 'Bác sĩ' : ($staff->position == 1 ? 'Nhân viên' : 'Other') }}
                                                 </td>
-                                                <td>{{ $staff->department }}</td>
                                                 <td>{{ $staff->services?->serviceName ?? 'Tiếp khách' }}</td>
                                                 <td>
                                                     @if($staff->status == 0)

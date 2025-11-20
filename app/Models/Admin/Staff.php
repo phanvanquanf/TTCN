@@ -15,12 +15,9 @@ class Staff extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'staffId',
         'fullName',
         'gender',
         'birthDate',
-        'position',
-        'department',
         'phone',
         'accountId',
         'image',

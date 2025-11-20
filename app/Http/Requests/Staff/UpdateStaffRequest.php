@@ -26,14 +26,12 @@ class UpdateStaffRequest extends FormRequest
                 Rule::unique('tblstaff', 'phone')->ignore($staffId, 'staffId')
             ],
 
-            'department' => 'required|string',
             'birthDate'  => 'required',
 
             'image'      => 'nullable|image|mimes:jpg,jpeg,png,webp',
 
             'status'     => 'required|integer',
             'gender'     => 'nullable',
-            'position'   => 'nullable',
             'accountId' =>  'integer',
             'serviceId'  => 'nullable',
         ];
@@ -51,9 +49,6 @@ class UpdateStaffRequest extends FormRequest
             'phone.max'         => 'Số điện thoại bắt buộc tối đa 10 số.',
 
             'birthDate.required' => 'Vui lòng chọn ngày/tháng/năm sinh.',
-
-            'department.required' => 'Vui lòng nhập phòng ban.',
-            'department.string'   => 'Phòng ban không hợp lệ.',
 
             'image.image' => 'File tải lên phải là hình ảnh.',
             'image.mimes' => 'Ảnh phải có định dạng jpg, jpeg, png hoặc webp.',

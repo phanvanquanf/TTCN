@@ -27,4 +27,9 @@ class Accounts extends Authenticatable
     {
         return $this->hasOne(\App\Models\Client\Patients::class, 'accountId',  'accountId');
     }
+
+    public function staff()
+    {
+        return $this->hasOne(\App\Models\Admin\Staff::class, 'accountId', 'accountId');
+    }
 }

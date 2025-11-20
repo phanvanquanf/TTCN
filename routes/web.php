@@ -11,6 +11,7 @@ use App\Http\Controllers\Client\DepartmentController;
 use App\Http\Controllers\Client\StaffController;
 use App\Http\Controllers\Client\PatientController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProfileController;
 
 // Login, Register
 Route::controller(AuthController::class)->group(function () {
@@ -63,13 +64,25 @@ Route::controller(AppointmentController::class)->group(function () {
 
 
 
-//Admin
+// Admin
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\StaffController as AdminStaffController;
 
 Route::controller(AdminHomeController::class)->middleware(['auth:web', 'check.role'])->group(function () {
     Route::get('/admin/index', 'index')->name('admin.home');
 });
+
+//ProfileController
+Route::prefix('admin/profile')->middleware(['auth:web', 'check.role'])->group(function () {
+    Route::get('/index/{id}', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/update/{id}',  [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/updatePassword/{id}',  [ProfileController::class, 'updatePassword'])->name('profile.password');
+});
+
+Route::get('/admin/profile/no-info', function () {
+    return view('admin.profile.no-info');
+})->name('profile.noinfo');
+
 
 //AccountController
 

@@ -140,6 +140,6 @@ class PatientController extends Controller
     public function destroy($id)
     {
         Patients::destroy($id);
-        return redirect('patients.index');
+        return redirect()->route('patients.index');
     }
 }

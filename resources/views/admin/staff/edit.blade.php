@@ -30,16 +30,11 @@
                                 @method('PUT')
 
                                 <div class="col-md-12 text-center mb-5">
-                                    @php
-                                        $folder = $staff->position == 0 ? 'doctor' : 'clinic';
-                                        $imagePath = $staff->image ? asset("admin/assets/img/staff/{$folder}/{$staff->image}") : '#';
-                                        $imgClass = $staff->image ? '' : 'd-none';
-                                    @endphp
-
                                     <img id="imagePreview"
-                                        src="{{ $imagePath }}"
-                                        class="rounded-3 border mt-2 {{ $imgClass }}"
-                                        style="width:200px; height:200px; object-fit:cover;">
+                                        src="{{asset('admin/assets/img/staff/doctor' . '/' . $staff->image) }}"
+                                        class="rounded-3 border mt-2 {{ $staff->image ? '' : 'd-none' }}"
+                                        style="width:200px; height:200px; object-fit:cover;" accept="image/*"
+                                        onchange="previewImage(event)">
                                 </div>
 
                                 <div class="row g-4">
@@ -79,27 +74,6 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label fw-semibold">Chức vụ</label>
-                                        <select name="position"
-                                            class="form-select form-select-lg shadow-sm border-0 rounded-3">
-                                            <option value="0" {{ (old('position') ?? $staff->position) == 0 ? 'selected' : '' }}>Bác sĩ</option>
-                                            <option value="1" {{ (old('position') ?? $staff->position) == 1 ? 'selected' : '' }}>Nhân viên phòng khám</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-semibold">Phòng ban <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" name="department"
-                                            class="form-control form-control-lg shadow-sm border-0 rounded-3 @error('department') is-invalid @enderror"
-                                            value="{{ old('department', $staff->department) }}" required>
-
-                                        @error('department')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-6">
                                         <label class="form-label fw-semibold">Ngày sinh <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" name="birthDate"
@@ -129,28 +103,23 @@
 
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Dịch vụ</label>
-                                        <select name="serviceId" class="form-select form-select-lg shadow-sm border-0 rounded-3">
+                                        <select name="serviceId"
+                                            class="form-select form-select-lg shadow-sm border-0 rounded-3">
                                             <option value="">-- Chọn dịch vụ --</option>
                                             @foreach ($services as $sv)
-                                                <option value="{{ $sv->serviceId }}"
-                                                    {{ old('serviceId') == $sv->serviceId ? 'selected' : '' }}>
+                                                <option value="{{ $sv->serviceId }}" {{ old('serviceId', $staff->serviceId) == $sv->serviceId ? 'selected' : '' }}>
                                                     {{ $sv->serviceName }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
 
-
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Ảnh đại diện</label>
-                                        <input type="hidden" name="old_image" value="{{ $staff->image }}">
                                         <input type="file" name="image"
-                                            class="form-control form-control-lg shadow-sm border-0 rounded-3 @error('image') is-invalid @enderror"
-                                            accept="image/*">
-
-                                        @error('image')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                            class="form-control form-control-lg shadow-sm border-0 rounded-3"
+                                            accept="image/*" onchange="previewImage(event)">
+                                        <span class="text-danger">@error('image') {{ $message }} @enderror</span>
                                     </div>
 
                                     <div class="col-md-6">

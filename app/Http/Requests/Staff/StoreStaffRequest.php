@@ -19,14 +19,12 @@ class StoreStaffRequest extends FormRequest
         return [
             'fullName'   => 'required|string',
             'phone'      => ['required', 'string', 'max:10', new UniquePhoneSystem('phone')],
-            'department' => 'required|string',
             'birthDate'  => 'required',
             'image'      => 'required|image|mimes:jpg,jpeg,png,webp',
             'status'     => 'required|integer',
             'gender'     => 'nullable',
-            'position'   => 'nullable',
             'accountId'  => ['required', new UniquePhoneSystem('accountId')],
-            'serviceId'  => 'nullable',
+            'serviceId'  => 'required',
         ];
     }
 
@@ -42,10 +40,9 @@ class StoreStaffRequest extends FormRequest
             'phone.max'         => 'Số điện thoại bắt buộc 10 số.',
 
             'accountId.required' => 'Vui lòng chọn tài khoản',
-            'birthDate.required' => 'Vui lòng chọn ngày/tháng/năm sinh',
 
-            'department.required' => 'Vui lòng nhập phòng ban.',
-            'department.string'   => 'Phòng ban không hợp lệ.',
+            'serviceId.required' => 'Vui lòng chọn dịch vụ',
+            'birthDate.required' => 'Vui lòng chọn ngày/tháng/năm sinh',
 
             'image.required' => 'Vui lòng tải ảnh lên',
             'image.image' => 'File tải lên phải là hình ảnh.',

@@ -32,4 +32,8 @@ class User extends Authenticatable
         return $this->hasOne(\App\Models\Client\Patients::class, 'accountId', 'id');
         // 'accountId' trong bảng patients, 'id' trong bảng users
     }
+    public function staff()
+    {
+        return $this->hasOne(\App\Models\Admin\Staff::class, 'accountId', 'id');
+    }
 }
